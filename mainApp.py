@@ -11,7 +11,7 @@ import sklearn.preprocessing
 from sklearn.preprocessing import OrdinalEncoder  
 
 #input data
-data= pandas.read_csv('./data/suicideDATA_income.csv').set_index('ลำดับ')
+data= pandas.read_csv('suicideDATA_income.csv').set_index('ลำดับ')
 
 
 # List of categorical features based on dataset
