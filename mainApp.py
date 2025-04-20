@@ -162,7 +162,7 @@ ordinal_mapping = [
 
 
 ordinal_encoder = sklearn.preprocessing.OrdinalEncoder(categories=ordinal_mapping)
-ordinal_encoder
+
 
 ordinal_encoder.fit(X = data[ordinal_features])
  
