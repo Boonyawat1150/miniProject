@@ -230,7 +230,8 @@ show_bar = st.sidebar.checkbox("Show Bar Chart", value=True)
 show_pie = st.sidebar.checkbox("Show Pie Chart", value=True)
 
 # Title
-st.title("Prediction Result Overview")
+st.title('MiniProject BDA perdict the Suicide risk by Group##')
+st.subheader("Prediction Result Overview")
 
 # Show raw data
 if st.checkbox("Show raw predictions"):
