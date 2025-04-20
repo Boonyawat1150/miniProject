@@ -1,16 +1,16 @@
- import pandas
+import pandas
 import streamlit as st
 import matplotlib.pyplot as plt
 import seaborn as sns
 import pickle
- import sklearn.model_selection
- import numpy
- import sklearn.impute
- from sklearn.tree import DecisionTreeClassifier
- import sklearn.preprocessing
- from sklearn.preprocessing import OrdinalEncoder
- %matplotlib inline
- #input data
+import sklearn.model_selection
+import numpy
+import sklearn.impute
+from sklearn.tree import DecisionTreeClassifier
+import sklearn.preprocessing
+from sklearn.preprocessing import OrdinalEncoder  
+
+#input data
 data= pandas.read_csv('./data/suicideDATA_income.csv').set_index('ลำดับ')
 
 
@@ -164,15 +164,13 @@ ordinal_mapping = [
 ordinal_encoder = sklearn.preprocessing.OrdinalEncoder(categories=ordinal_mapping)
 ordinal_encoder
 
- ordinal_encoder.fit(
- X = data[ordinal_features]
- )
+ordinal_encoder.fit(X = data[ordinal_features])
  
 data_ordinal_features = pandas.DataFrame(data= ordinal_encoder.transform(data[ordinal_features]),
 columns = ordinal_encoder.get_feature_names_out(),
 index = data.index)
 
- nominal_features = [
+nominal_features = [
      
 'สถานภาพสมรส',
  'เชื้อชาติ',
@@ -188,7 +186,7 @@ index = data.index)
      
  ]
  
- nominal_mapping = [
+nominal_mapping = [
  ['โสด','คู่', 'หย่า', 'หม้าย', 'ไม่ทราบ', 'ไม่กรอกข้อมูล/ว่าง','แยก'],
  ['ไทย', 'ไม่ระบุ' ,'พม่าพลัดถิ่น', 'ชาวเขาที่ไม่ได้สัญชาติไทย', 'ไร้สัญชาติ'],['ไทย', 'ไม่ระบุ' ,'อื่น ๆ' ,'พม่าพลัดถิ่น' ,'ชาวเขาที่ไม่ได้สัญชาติไทย','พม่า', 'ลาว'],
  ['พุทธ', 'ไม่ระบุ', 'คริสต์'],
@@ -201,12 +199,11 @@ index = data.index)
  ['จ.เชียงราย', 'จ.เชียงใหม่', 'จ.ลำปาง', 'จ.ตรัง', 'จ.สิงห์บุรี', 'จ.นครราชสีมา', 'จ.สระแก้ว', 'จ.ลำพูน','จ.ชลบุรี', 'จ.บุรีรัมย์', 'จ.พะเยา', 'จ.กรุงเทพมหานคร', 'จ.กาญจนบุรี']
 ]
  
- onehot_encoder = sklearn.preprocessing.OneHotEncoder(categories=nominal_mapping, sparse_output=False)
- onehot_encoder.fit(
+onehot_encoder = sklearn.preprocessing.OneHotEncoder(categories=nominal_mapping, sparse_output=False)
+onehot_encoder.fit(
  X=data[nominal_features]
  )
- 
- data_nominal_features = pandas.DataFrame(
+data_nominal_features = pandas.DataFrame(
 data
 = onehot_encoder.transform(data[nominal_features]),
 columns = onehot_encoder.get_feature_names_out(),
