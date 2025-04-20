@@ -1,10 +1,9 @@
  import pandas
+import streamlit as st
 import matplotlib.pyplot as plt
 import seaborn as sns
 import pickle
  import sklearn.model_selection
- import pandas
- import seaborn
  import numpy
  import sklearn.impute
  from sklearn.tree import DecisionTreeClassifier
@@ -228,33 +227,48 @@ data_predictions = pandas.DataFrame(
  columns = ['prediction']
  )
 
-# Set seaborn style
-sns.set(style="whitegrid")
+# Sidebar
+st.sidebar.title("Prediction Visualizer")
+show_bar = st.sidebar.checkbox("Show Bar Chart", value=True)
+show_pie = st.sidebar.checkbox("Show Pie Chart", value=True)
+
+# Title
+st.title("Prediction Result Overview")
+
+# Show raw data
+if st.checkbox("Show raw predictions"):
+    st.dataframe(data_predictions)
 
 # Count values
 prediction_counts = data_predictions['prediction'].value_counts().sort_index()
 
-# Plot
-plt.figure(figsize=(8, 5))
-sns.barplot(x=prediction_counts.index.astype(str), y=prediction_counts.values, palette="Set2")
+# Bar Chart
+if show_bar:
+    st.subheader("Bar Chart of Predictions")
+    fig_bar, ax_bar = plt.subplots()
+    sns.barplot(
+        x=prediction_counts.index.astype(str),
+        y=prediction_counts.values,
+        palette="Set2",
+        ax=ax_bar
+    )
+    ax_bar.set_xlabel("Prediction Class")
+    ax_bar.set_ylabel("Count")
+    ax_bar.set_title("Distribution of Predicted Classes")
+    st.pyplot(fig_bar)
 
-# Add labels and title
-plt.xlabel("Prediction Class")
-plt.ylabel("Count")
-plt.title("Distribution of Predicted Classes")
-plt.tight_layout()
-
-# Show plot
-plt.show()
-
-
-# Pie chart
-plt.figure(figsize=(6, 6))
-plt.pie(prediction_counts.values, labels=prediction_counts.index.astype(str), autopct='%1.1f%%', colors=sns.color_palette("Set2"))
-
-plt.title("Prediction Class Distribution")
-plt.show()
-
+# Pie Chart
+if show_pie:
+    st.subheader("Pie Chart of Predictions")
+    fig_pie, ax_pie = plt.subplots()
+    ax_pie.pie(
+        prediction_counts.values,
+        labels=prediction_counts.index.astype(str),
+        autopct='%1.1f%%',
+        colors=sns.color_palette("Set2")
+    )
+    ax_pie.set_title("Prediction Class Distribution")
+    st.pyplot(fig_pie)
 
 
 
