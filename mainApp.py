@@ -216,7 +216,7 @@ data_use = (
  .join(data_nominal_features)
  
  )
-model = pickle.load(open('dtm_trained.pkl', 'rb'))
+model = pickle.load(open('RF_trained.pkl', 'rb'))
  
 data_predictions = pandas.DataFrame(
  data = model.predict(data_use),
